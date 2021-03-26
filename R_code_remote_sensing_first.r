@@ -70,3 +70,41 @@ plot(p224r63_2011$B3_sre, col=clr)
 clnir <- colorRampPalette(c("yellow","orange","red")) (100)
 plot(p224r63_2011$B4_sre, col=clnir)
 
+
+#lezione 8 ven 26 mar: visualizing data by RGB plotting
+library(raster)
+setwd("~/lab/")
+p224r63_2011 <- brick("p224r63_2011_masked.grd")
+
+# Bande Landsat
+# B1: blu
+# B2: verde
+# B3: rosso
+# B4: infrarosso vicino
+# B5: infrarosso medio
+# B6: infrarosso termico
+# B7:  infrarosso meio
+
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin") #abbiamo un ogetto raster multi-layer e tramite la funzione plottiamo associando 3 bande alle relaive RGB
+#stretch lineare serve per tirare l'immagine e mostrare tutte le sfumature presenti, a scopo di visualizzazione, non cambiamo i dati
+#in questo caso vedremo con i colori naturali - quelli del visibile a occhio umano
+
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch="Lin") #in questo caso invece abbiamo tolto la banda blu e inserito la banda dell'infrarosso vicino, in questo caso si dice a falsi colori, semplicemente perchè non sono quelle del visibile
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="Lin") #a seconda della banda che montiamo visualizziamo pattern del paesaggio diversi, che magari prima non riuscivam a vedere, in questo caso si vede bene la componente agricola
+plotRGB(p224r63_2011,r=3,g=2,b=4,stretch="Lin")
+
+pdf("il_mio_primo_pdf_con_R.pdf") #funzione per creare un pdf dell'immagine interessata
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin")
+plotRGB(p224r63_2011,r=4,g=3,b=2,stretch="Lin")
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="Lin")
+plotRGB(p224r63_2011,r=3,g=2,b=4,stretch="Lin")
+dev.off()
+
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="hist") #aumentiamo lo stretch passando da una funzione lineare a una histogram "s", ci permette in questo caso di visualizzare la diramazione dei corsi d'acqua che a occhio nudo non vedremmo, chiamate dimensione frattale che significa visualizzare l'oggetto che si ripete con la stessa forma infinitamente - cavolo romano, usato per studiare gli incendi
+
+#costruiamo un multiframe plottando la nostra immaggine in colori naturali, in falsi colori con uno stretch lineare e in falsi colori con uno stretch histogram
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin")
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="lin")
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="hist")
