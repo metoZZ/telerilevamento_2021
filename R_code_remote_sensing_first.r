@@ -108,3 +108,7 @@ par(mfrow=c(3,1))
 plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin")
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="lin")
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="hist")
+ 
+
+install.packages("RStoolbox")
+library(RStoolbox)
