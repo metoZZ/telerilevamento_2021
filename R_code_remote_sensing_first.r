@@ -83,7 +83,7 @@ p224r63_2011 <- brick("p224r63_2011_masked.grd")
 # B4: infrarosso vicino
 # B5: infrarosso medio
 # B6: infrarosso termico
-# B7:  infrarosso meio
+# B7: infrarosso medio
 
 plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin") #abbiamo un ogetto raster multi-layer e tramite la funzione plottiamo associando 3 bande alle relaive RGB
 #stretch lineare serve per tirare l'immagine e mostrare tutte le sfumature presenti, a scopo di visualizzazione, non cambiamo i dati
@@ -101,9 +101,9 @@ plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="Lin")
 plotRGB(p224r63_2011,r=3,g=2,b=4,stretch="Lin")
 dev.off()
 
-plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="hist") #aumentiamo lo stretch passando da una funzione lineare a una histogram "s", ci permette in questo caso di visualizzare la diramazione dei corsi d'acqua che a occhio nudo non vedremmo, chiamate dimensione frattale che significa visualizzare l'oggetto che si ripete con la stessa forma infinitamente - cavolo romano, usato per studiare gli incendi
+plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="hist") # aumentiamo lo stretch passando da una funzione lineare a una histogram "s", ci permette in questo caso di visualizzare la diramazione dei corsi d'acqua che a occhio nudo non vedremmo, chiamate dimensione frattale che significa visualizzare l'oggetto che si ripete con la stessa forma infinitamente - cavolo romano, usato per studiare gli incendi
 
-#costruiamo un multiframe plottando la nostra immaggine in colori naturali, in falsi colori con uno stretch lineare e in falsi colori con uno stretch histogram
+# costruiamo un multiframe plottando la nostra immaggine in colori naturali, in falsi colori con uno stretch lineare e in falsi colori con uno stretch histogram
 par(mfrow=c(3,1))
 plotRGB(p224r63_2011,r=3,g=2,b=1,stretch="Lin")
 plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="lin")
@@ -112,3 +112,51 @@ plotRGB(p224r63_2011,r=3,g=4,b=2,stretch="hist")
 
 install.packages("RStoolbox")
 library(RStoolbox)
+
+
+
+
+
+
+
+# lezione 9 mer 31 mar: Multitemporal set-Analisi Multitemporale
+
+library(raster) # come al solito richiamiamo il pacchetto raster
+setwd("~/lab/") # settiamo la cartella di lavoro
+
+p224r63_2011 <- brick("p224r63_2011_masked.grd") # richiamiamo e associamo la solita immagine del 2011
+p224r63_2011 # in questo modo vediamo le sue caratteristiche
+
+p224r63_1988 <- brick("p224r63_1988_masked.grd") # richiamiamo e associamo la stessa area - con uguae path e row - ma immagine del 1988
+p224r63_1988 # ne visioniamo le caratteristiche 
+
+plot(p224r63_1988) # plottiamo le singole bande
+
+dev.off() # pulisco
+
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin") # plottiamo associando le bande ai multi layer RGB a colori naturali
+
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin") # scattiamo tutti i numeri delle bande di uno per inserire la banda a infrarosso vicino
+
+# plottiamo le due immagini, del 1988 e del 2011, per confrontarle
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+
+# plottiamo le due immagini, del 1988 e del 2011, per confrontarle sia temporalmente sia confrontando i due stretch, lin e hist
+# con hist riusciamo ad evidenziare minerali rocce sabbia 
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Hist")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Hist")
+
+# produciamo un pdf con le immagini plottate 
+pdf("Multitemp.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Hist")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Hist")
+dev.off()
+
