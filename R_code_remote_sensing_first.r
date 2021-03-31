@@ -1,5 +1,7 @@
 # il mio primo codice in R per il Telerilevamento!
 
+# ogni volta che uso una nuova funzione se la scrivo nel motore di ricerca trovo cosa esegue e la sua scrittura
+
 install.packages("raster") #funzione per installare un pacchetto, in questo caso raster è esterno quindi mettiamo le virgolette
 
 setwd("~/lab/") #linux, set working directory, settare la cartella di lavoro 
@@ -69,6 +71,9 @@ clr <- colorRampPalette(c("pink","red","dark red")) (100)
 plot(p224r63_2011$B3_sre, col=clr)
 clnir <- colorRampPalette(c("yellow","orange","red")) (100)
 plot(p224r63_2011$B4_sre, col=clnir)
+
+
+
 
 
 #lezione 8 ven 26 mar: visualizing data by RGB plotting
