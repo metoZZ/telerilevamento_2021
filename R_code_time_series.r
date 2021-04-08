@@ -7,6 +7,8 @@ library(raster)
 setwd("~/lab/greenland") 
 
 
+
+
 #lezione 10 mer 7 apr
 lst_2000 <- raster("lst_2000.tif") # al posto di usare brick che serve per pacchetti di dati, usiamo raster che invece richiama un singolo strato
 lst_2000 #dettagli del dato, tipo i valori min e max
