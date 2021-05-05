@@ -74,3 +74,16 @@ cld <- colorRampPalette(c('blue','white','red'))(100)
 plot(difndvi, col=cld)
 
 
+
+# Lezione 18 mer 5 mag
+# prima cosa ci serve il pacchetto rasterdiv, serve per l'indice NDVI mondiale, e quindi lo installiamo 
+install.packages("rasterdiv")
+library(rasterdiv) # testiamo se il pacchetto è installato
+plot(copNDVI) #plottiamo l'indice
+# eliminiamo l'acqua, annullando - NA - i valori dal 253 al 255
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA))
+plot(copNDVI)
+
+library(rasterVis) # richiamiamo il pacchetto rasterVis perchè ci servirà la funzione levelplot
+levelplot(copNDVI)
+
